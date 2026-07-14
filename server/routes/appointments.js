@@ -28,43 +28,49 @@ router.post("/", async (req, res, next) => {
         .json({ message: "Doctor, date, and time are required" });
     }
 
-    let doctorQuery = { role: "doctor" };
+    const normalizedLookup = String(doctorLookup).trim();
+    const doctorNameMap = {
+      "sandeep-chopra": "Dr. Sandeep Chopra",
+      "jagminder-singh": "Dr. Jagminder Singh",
+      "hunny-bansal": "Dr. Hunny Bansal",
+    };
+    const resolvedName =
+      req.body.doctorName ||
+      doctorNameMap[normalizedLookup.toLowerCase()] ||
+      normalizedLookup ||
+      "Doctor";
+
+    let matchedDoctor = null;
 
     if (mongoose.Types.ObjectId.isValid(doctorLookup)) {
-      doctorQuery._id = doctorLookup;
-    } else {
-      const normalizedLookup = String(doctorLookup).trim();
-      const doctorNameMap = {
-        "sandeep-chopra": "Dr. Sandeep Chopra",
-        "jagminder-singh": "Dr. Jagminder Singh",
-        "hunny-bansal": "Dr. Hunny Bansal",
-      };
-      const resolvedName =
-        doctorNameMap[normalizedLookup.toLowerCase()] || normalizedLookup;
-
-      doctorQuery.$or = [
-        {
-          name: {
-            $regex: new RegExp(
-              `^${resolvedName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
-              "i",
-            ),
-          },
-        },
-        {
-          name: {
-            $regex: new RegExp(
-              `^${normalizedLookup.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
-              "i",
-            ),
-          },
-        },
-      ];
+      matchedDoctor = await User.findOne({ _id: doctorLookup, role: "doctor" });
     }
 
-    const matchedDoctor = await User.findOne(doctorQuery);
     if (!matchedDoctor) {
-      return res.status(404).json({ message: "Doctor not found" });
+      const escapedName = resolvedName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      matchedDoctor = await User.findOne({
+        role: "doctor",
+        $or: [
+          { name: { $regex: new RegExp(`^${escapedName}$`, "i") } },
+          { name: { $regex: new RegExp(`^${normalizedLookup.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") } },
+        ],
+      });
+    }
+
+    if (!matchedDoctor) {
+      const safeSlug = String(resolvedName)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "") || "doctor";
+      const tempDoctor = new User({
+        name: resolvedName,
+        email: `${safeSlug}-${Date.now()}@placeholder.local`,
+        passwordHash: await bcrypt.hash("temporary-password", 10),
+        role: "doctor",
+        isAdmin: false,
+        specialization: "General",
+      });
+      matchedDoctor = await tempDoctor.save();
     }
 
     if (!patientId) {
