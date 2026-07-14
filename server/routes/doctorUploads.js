@@ -27,6 +27,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+const buildBaseUrl = (req) => {
+  if (process.env.BASE_URL) {
+    return process.env.BASE_URL.replace(/\/$/, "");
+  }
+
+  return `${req.protocol}://${req.get("host")}`;
+};
+
 router.post(
   "/doctor-gallery/:doctorId",
   auth,
@@ -37,9 +45,7 @@ router.post(
       return res.status(400).json({ message: "No files uploaded" });
     }
 
-    const baseUrl =
-      process.env.BASE_URL ||
-      "https://hospital-appointment-system-xt44.onrender.com/";
+    const baseUrl = buildBaseUrl(req);
     const uploadedImages = req.files.map(
       (file) =>
         `${baseUrl}/uploads/doctor-gallery/${req.params.doctorId}/${file.filename}`,
@@ -57,14 +63,12 @@ router.get("/doctor-gallery/:doctorId", (req, res) => {
     return res.json({ images: [] });
   }
 
+  const baseUrl = buildBaseUrl(req);
   const files = fs
     .readdirSync(doctorDir)
     .filter((file) => /\.(png|jpe?g|gif|webp|svg)$/i.test(file))
     .sort()
-    .map(
-      (file) =>
-        `${process.env.BASE_URL}/uploads/doctor-gallery/${doctorId}/${file}`,
-    );
+    .map((file) => `${baseUrl}/uploads/doctor-gallery/${doctorId}/${file}`);
 
   res.json({ images: files });
 });

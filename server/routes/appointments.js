@@ -52,16 +52,24 @@ router.post("/", async (req, res, next) => {
         role: "doctor",
         $or: [
           { name: { $regex: new RegExp(`^${escapedName}$`, "i") } },
-          { name: { $regex: new RegExp(`^${normalizedLookup.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") } },
+          {
+            name: {
+              $regex: new RegExp(
+                `^${normalizedLookup.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
+                "i",
+              ),
+            },
+          },
         ],
       });
     }
 
     if (!matchedDoctor) {
-      const safeSlug = String(resolvedName)
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "") || "doctor";
+      const safeSlug =
+        String(resolvedName)
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "") || "doctor";
       const tempDoctor = new User({
         name: resolvedName,
         email: `${safeSlug}-${Date.now()}@placeholder.local`,
