@@ -49,9 +49,11 @@ function BookAppointment() {
         setIsSubmitting(true)
 
         try {
+            const selectedDoctor = doctorOptions.find((doctor) => doctor.id === formData.doctorId)
             const payload = {
                 ...formData,
                 doctorId: formData.doctorId,
+                doctorName: selectedDoctor?.name || formData.doctorId,
             }
 
             await authAxios.post('/api/appointments', payload)
