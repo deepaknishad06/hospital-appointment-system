@@ -13,13 +13,13 @@ function Dashboard() {
     useEffect(() => {
         const loadData = async () => {
             try {
-                const profile = await authAxios.get('/users/me')
+                const profile = await authAxios.get('/api/users/me')
                 setUser(profile.data)
 
-                const appts = await authAxios.get('/appointments')
+                const appts = await authAxios.get('/api/appointments')
                 setAppointments(appts.data.appointments || [])
 
-                const recordRes = await authAxios.get('/medical-records')
+                const recordRes = await authAxios.get('/api/medical-records')
                 setRecords(recordRes.data.records || [])
             } catch (error) {
                 setStatus(error.response?.data?.message || 'Failed to load dashboard')

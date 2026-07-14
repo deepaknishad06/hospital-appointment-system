@@ -19,7 +19,7 @@ function DoctorLogin() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            const response = await authAxios.post('/auth/login', formData)
+            const response = await authAxios.post('/api/auth/login', formData)
             localStorage.setItem('hospital_token', response.data.token)
             localStorage.setItem('hospital_user', JSON.stringify(response.data.user))
             if (response.data.user.role !== 'doctor') {

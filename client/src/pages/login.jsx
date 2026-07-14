@@ -49,7 +49,7 @@ function Login() {
         }
 
         try {
-            const response = await authAxios.post('/auth/login', credentials)
+            const response = await authAxios.post('/api/auth/login', credentials)
             localStorage.setItem('hospital_token', response.data.token)
             localStorage.setItem('hospital_user', JSON.stringify(response.data.user))
             window.location.href = '/dashboard'
@@ -67,7 +67,7 @@ function Login() {
         }
 
         try {
-            await authAxios.post('/auth/register', {
+            await authAxios.post('/api/auth/register', {
                 ...patientRegisterData,
                 role: 'patient'
             })
@@ -91,7 +91,7 @@ function Login() {
         }
 
         try {
-            await authAxios.post('/auth/register', {
+            await authAxios.post('/api/auth/register', {
                 ...doctorRegisterData,
                 role: 'doctor'
             })

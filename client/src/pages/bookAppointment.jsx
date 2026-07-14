@@ -2,6 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
+import { authAxios } from '../services/api'
 import './bookAppointment.css'
 
 const doctors = [
@@ -48,20 +49,7 @@ function BookAppointment() {
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/appointments`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                })
-
-            if (!response.ok) {
-                const errorData = await response.json()
-                throw new Error(errorData.message || 'Failed to save appointment')
-            }
+            await authAxios.post('/api/appointments', formData)
 
             setStatus('Appointment request sent successfully. We will contact you soon.')
             setFormData({
@@ -74,7 +62,7 @@ function BookAppointment() {
                 symptoms: '',
             })
         } catch (error) {
-            setStatus(error.message)
+            setStatus(error.response?.data?.message || error.message || 'Failed to save appointment')
         } finally {
             setIsSubmitting(false)
         }

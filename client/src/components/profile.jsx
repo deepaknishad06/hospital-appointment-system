@@ -24,11 +24,8 @@ function Profile() {
 
         const loadImages = async () => {
             try {
-                const response = await fetch(
-                    `${import.meta.env.VITE_API_URL}/api/doctor-gallery/${doctor.id}`
-                );
-                const data = await response.json()
-                setUploadedImages(data.images?.length ? data.images : (doctor.galleryImages || []))
+                const response = await authAxios.get(`/api/doctor-gallery/${doctor.id}`)
+                setUploadedImages(response.data.images?.length ? response.data.images : (doctor.galleryImages || []))
             } catch (error) {
                 setUploadedImages(doctor.galleryImages || [])
             }

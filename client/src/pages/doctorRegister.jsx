@@ -19,7 +19,7 @@ function DoctorRegister() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            await authAxios.post('/users/doctor/register', formData)
+            await authAxios.post('/api/users/doctor/register', formData)
             setStatus('Registration submitted. Await admin approval.')
             setTimeout(() => navigate('/doctor-login'), 1500)
         } catch (error) {
