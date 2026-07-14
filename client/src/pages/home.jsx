@@ -126,7 +126,7 @@ function Home() {
                 <img src={bannerImg} alt="Hospital banner" className="hero-image" />
                 <div className="hero-overlay" />
                 <div className="hero-content">
-                        <p className="hero-subtitle">Compassionate Care, Anytime</p>
+                    <p className="hero-subtitle">Compassionate Care, Anytime</p>
                     <h1>Your trusted health partner</h1>
                     <p className="hero-description">
                         Experience trusted medical care with a caring team dedicated to your health and comfort.

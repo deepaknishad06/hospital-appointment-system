@@ -29,7 +29,7 @@
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--white);
+    color: #ffff;
     text-decoration: none;
     letter-spacing: 0.02em;
 }
