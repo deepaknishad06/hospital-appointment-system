@@ -1,0 +1,133 @@
+.contact-page {
+    background: #f6fbff;
+    padding-top: 5.5rem;
+    color: #102a43;
+}
+
+.contact-hero {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+}
+
+.contact-hero-copy {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.contact-hero-copy .section-subtitle {
+    display: inline-flex;
+    padding: 0.75rem 1.2rem;
+    background: rgba(59, 130, 246, 0.12);
+    color: #1d4ed8;
+    font-weight: 700;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+}
+
+.contact-hero-copy h1 {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: 1rem;
+}
+
+.contact-hero-copy p {
+    max-width: 660px;
+    margin: 0 auto;
+    color: #475569;
+    line-height: 1.85;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+}
+
+.contact-card {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 24px 55px rgba(15, 23, 42, 0.08);
+}
+
+.contact-card h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 1rem;
+    color: #334155;
+    font-weight: 600;
+}
+
+.contact-form label span {
+    color: #dc2626;
+    margin-left: 0.25rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    border: 1px solid #94a3b8;
+    border-radius: 1rem;
+    padding: 0.95rem 1rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    background: #ffffff;
+    color: #0f172a;
+    box-sizing: border-box;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-details {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.contact-details strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: #0f172a;
+}
+
+.contact-note {
+    margin-top: 1.5rem;
+    color: #475569;
+    line-height: 1.75;
+}
+
+.contact-status {
+    margin-top: 1rem;
+    color: #166534;
+    font-weight: 600;
+}
+
+@media (max-width: 960px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-hero {
+        padding: 3rem 1rem 1.5rem;
+    }
+
+    .contact-card {
+        padding: 1.5rem;
+    }
+}

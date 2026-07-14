@@ -1,0 +1,143 @@
+.appointment-page {
+
+    position: relative;
+    min-height: 100vh;
+    background: #f8fbff;
+    padding: 4rem 2rem 2rem;
+    padding-top: 6rem;
+}
+
+.appointment-hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.appointment-hero-content {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.appointment-hero-content h1 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    margin-bottom: 1rem;
+}
+
+.appointment-form-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.appointment-form-card {
+    width: 100%;
+    max-width: 760px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.appointment-form-card h2 {
+    margin-bottom: 1.25rem;
+}
+
+.appointment-form label {
+    display: block;
+    margin-bottom: 1rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+.appointment-form label span {
+    color: #d6336c;
+    margin-left: 0.25rem;
+}
+
+.appointment-form input,
+.appointment-form select,
+.appointment-form textarea {
+    width: 100%;
+    border: 1px solid #94a3b8;
+    border-radius: 0.8rem;
+    padding: 0.95rem 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.98rem;
+    background: #ffffff;
+    color: #0f172a;
+    box-sizing: border-box;
+}
+
+.appointment-form input:focus,
+.appointment-form select:focus,
+.appointment-form textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.appointment-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 1.35rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #1f3b5b;
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.appointment-status {
+    margin-top: 1rem;
+    color: #0f172a;
+    font-weight: 500;
+}
+
+.appointment-info-section {
+    display: flex;
+    justify-content: center;
+}
+
+.appointment-info-card {
+    max-width: 760px;
+    background: #1f3b5b;
+    color: #ffffff;
+    padding: 2rem;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.appointment-info-card p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .appointment-page {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .appointment-row {
+        grid-template-columns: 1fr;
+    }
+}

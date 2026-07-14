@@ -1,0 +1,213 @@
+.about-page {
+    background: #f8fbff;
+    color: #12263f;
+}
+
+.about-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    padding: 5rem 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 6rem;
+}
+
+.about-hero-copy {
+    max-width: 620px;
+}
+
+.about-hero-copy h1 {
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+}
+
+.about-hero-copy p {
+    line-height: 1.85;
+    margin-bottom: 2rem;
+    color: #475569;
+}
+
+.about-hero-image {
+    min-height: 400px;
+    border-radius: 2rem;
+    /* background: linear-gradient(180deg, #1f3b5b 0%, #326491 100%); */
+    background-image: url('/src/assets/patientDoctor.jpg');
+    background-size: cover;
+    /* background-position: center; */
+    box-shadow: 0 35px 80px rgba(31, 59, 91, 0.18);
+    position: relative;
+}
+
+.about-hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1580281657521-39ecf87e8a1a?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+    opacity: 0.92;
+    border-radius: 2rem;
+}
+
+.about-mission,
+.about-values,
+.about-departments,
+.about-faq {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+}
+
+.mission-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+}
+
+.mission-card h2 {
+    margin-bottom: 1rem;
+}
+
+.mission-card p {
+    color: #475569;
+    line-height: 1.8;
+}
+
+.mission-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.mission-stats div {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+    text-align: center;
+}
+
+.mission-stats strong {
+    display: block;
+    font-size: 2rem;
+    color: #1f3b5b;
+}
+
+.mission-stats span {
+    display: block;
+    margin-top: 0.5rem;
+    color: #64748b;
+}
+
+.about-values h2,
+.about-departments h2,
+.about-faq h2 {
+    margin-bottom: 1.5rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.value-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+}
+
+.value-card h3 {
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: #475569;
+    line-height: 1.75;
+}
+
+.departments-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.department-pill {
+    display: inline-flex;
+    padding: 0.9rem 1.2rem;
+    background: #e2f0ff;
+    color: #1f3b5b;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.faq-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.faq-item {
+    background: #ffffff;
+    border-radius: 1.4rem;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    background: #f8fbff;
+    padding: 1.35rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+}
+
+.faq-answer {
+    padding: 1.25rem 1.5rem;
+    color: #475569;
+    line-height: 1.85;
+    border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 980px) {
+    .about-hero {
+        grid-template-columns: 1fr;
+        padding: 4rem 1.5rem 2rem;
+    }
+
+    .about-hero-image {
+        min-height: 320px;
+    }
+
+    .mission-stats,
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-hero {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .about-hero-copy h1 {
+        font-size: 2.3rem;
+    }
+
+    .about-mission,
+    .about-values,
+    .about-departments,
+    .about-faq {
+        padding: 2rem 1rem;
+    }
+}
