@@ -1,21 +1,21 @@
-import axios from 'axios'
+import axios from "axios";
 
 const API_BASE = (
   import.meta.env.VITE_API_BASE ||
-  'https://hospital-appointment-system-xt44.onrender.com'
-).replace(/\/$/, '')
+  "https://hospital-appointment-system-xt44.onrender.com"
+).replace(/\/$/, "");
 
 const authAxios = axios.create({
   baseURL: API_BASE,
-})
+});
 
 authAxios.interceptors.request.use((config) => {
-  const token = localStorage.getItem('hospital_token')
+  const token = localStorage.getItem("hospital_token");
   if (token) {
-    config.headers = config.headers ?? {}
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers = config.headers ?? {};
+    config.headers.Authorization = `Bearer ${token}`;
   }
-  return config
-})
+  return config;
+});
 
-export { API_BASE, authAxios }
+export { API_BASE, authAxios };

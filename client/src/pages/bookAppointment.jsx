@@ -5,10 +5,10 @@ import Footer from '../components/footer'
 import { authAxios } from '../services/api'
 import './bookAppointment.css'
 
-const doctors = [
-    'Dr. Sandeep Chopra',
-    'Dr. Jagminder Singh',
-    'Dr. Hunny Bansal',
+const doctorOptions = [
+    { id: 'sandeep-chopra', name: 'Dr. Sandeep Chopra' },
+    { id: 'jagminder-singh', name: 'Dr. Jagminder Singh' },
+    { id: 'hunny-bansal', name: 'Dr. Hunny Bansal' },
 ]
 
 function BookAppointment() {
@@ -17,7 +17,7 @@ function BookAppointment() {
         patientName: '',
         email: '',
         phone: '',
-        doctor: doctors[0],
+        doctorId: doctorOptions[0].id,
         appointmentDate: '',
         appointmentTime: '',
         symptoms: '',
@@ -41,7 +41,7 @@ function BookAppointment() {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        if (!formData.patientName.trim() || !formData.email.trim() || !formData.appointmentDate || !formData.appointmentTime) {
+        if (!formData.patientName.trim() || !formData.email.trim() || !formData.doctorId || !formData.appointmentDate || !formData.appointmentTime) {
             setStatus('Please fill in all required fields.')
             return
         }
@@ -49,14 +49,19 @@ function BookAppointment() {
         setIsSubmitting(true)
 
         try {
-            await authAxios.post('/api/appointments', formData)
+            const payload = {
+                ...formData,
+                doctorId: formData.doctorId,
+            }
+
+            await authAxios.post('/api/appointments', payload)
 
             setStatus('Appointment request sent successfully. We will contact you soon.')
             setFormData({
                 patientName: '',
                 email: '',
                 phone: '',
-                doctor: doctors[0],
+                doctorId: doctorOptions[0].id,
                 appointmentDate: '',
                 appointmentTime: '',
                 symptoms: '',
@@ -121,9 +126,9 @@ function BookAppointment() {
 
                             <label>
                                 Select Doctor<span>*</span>
-                                <select name="doctor" value={formData.doctor} onChange={handleChange}>
-                                    {doctors.map((doctor) => (
-                                        <option key={doctor} value={doctor}>{doctor}</option>
+                                <select name="doctorId" value={formData.doctorId} onChange={handleChange}>
+                                    {doctorOptions.map((doctor) => (
+                                        <option key={doctor.id} value={doctor.id}>{doctor.name}</option>
                                     ))}
                                 </select>
                             </label>
