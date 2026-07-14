@@ -1,5 +1,5 @@
-﻿import { useState } from 'react'
-import { Link } from 'react-router-dom'
+﻿import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './bookAppointment.css'
@@ -11,6 +11,7 @@ const doctors = [
 ]
 
 function BookAppointment() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         patientName: '',
         email: '',
@@ -22,6 +23,13 @@ function BookAppointment() {
     })
     const [status, setStatus] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
+
+    useEffect(() => {
+        if (!localStorage.getItem('hospital_token')) {
+            alert('Login patient first for booking appointments')
+            navigate('/login')
+        }
+    }, [navigate])
 
     const handleChange = (event) => {
         const { name, value } = event.target

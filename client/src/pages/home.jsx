@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import bannerImg from '../assets/banner.jpg'
 import drSandeepChopra from '../assets/drSandeepChopra.png'
 import drJagminderSingh from '../assets/drJagminderSingh.png'
 import drHunnyBansal from '../assets/drHunnyBansal.png'
-import { Link } from "react-router-dom";
 import Navbar from '../components/navbar'
 import './home.css'
 import Footer from '../components/footer'
@@ -73,9 +73,18 @@ const initialTestimonials = [
 ]
 
 function Home() {
+    const navigate = useNavigate()
     const [reviews, setReviews] = useState(initialTestimonials)
     const [formData, setFormData] = useState({ name: '', location: '', feedback: '', rating: 5 })
     const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
+
+    const handleBookAppointmentClick = () => {
+        if (!localStorage.getItem('hospital_token')) {
+            alert('Login patient first for booking appointments')
+            return
+        }
+        navigate('/book-appointment')
+    }
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -123,9 +132,9 @@ function Home() {
                         Experience trusted medical care with a caring team dedicated to your health and comfort.
                     </p>
                     <div className="hero-actions">
-                        <Link to="/book-appointment" className="btn btn-primary">
+                        <button onClick={handleBookAppointmentClick} className="btn btn-primary">
                             Book Appointment
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -148,7 +157,7 @@ function Home() {
                                     <Link to={`/doctor-profile/${doctor.id}`} className="btn btn-small btn-primary">
                                         View Profile
                                     </Link>
-                                    <Link to="/book-appointment" className="btn btn-small btn-secondary">Book Appointment</Link>
+                                    <button onClick={handleBookAppointmentClick} className="btn btn-small btn-secondary">Book Appointment</button>
                                 </div>
                             </div>
                         </article>
@@ -178,9 +187,9 @@ function Home() {
                     <p className="section-subtitle">Quick Action</p>
                     <h2>Need medical help today?</h2>
                     <p>Book your appointment now and get fast support from our expert care team.</p>
-                    <Link to="/book-appointment" className="btn btn-primary">
+                    <button onClick={handleBookAppointmentClick} className="btn btn-primary">
                         Book Appointment
-                    </Link>
+                    </button>
                 </div>
             </section>
 
