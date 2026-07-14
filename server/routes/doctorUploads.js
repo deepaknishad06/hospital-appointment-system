@@ -37,7 +37,9 @@ router.post(
       return res.status(400).json({ message: "No files uploaded" });
     }
 
-    const baseUrl = process.env.BASE_URL || "http://localhost:5000";
+    const baseUrl =
+      process.env.BASE_URL ||
+      "https://hospital-appointment-system-xt44.onrender.com/";
     const uploadedImages = req.files.map(
       (file) =>
         `${baseUrl}/uploads/doctor-gallery/${req.params.doctorId}/${file.filename}`,
@@ -61,7 +63,7 @@ router.get("/doctor-gallery/:doctorId", (req, res) => {
     .sort()
     .map(
       (file) =>
-        `${process.env.BASE_URL || "http://localhost:5000"}/uploads/doctor-gallery/${doctorId}/${file}`,
+        `${process.env.BASE_URL}/uploads/doctor-gallery/${doctorId}/${file}`,
     );
 
   res.json({ images: files });
