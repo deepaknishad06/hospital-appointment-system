@@ -83,7 +83,7 @@ function Home() {
             alert('Login patient first for booking appointments')
             return
         }
-        navigate('/book-appointment')
+        navigate('/login')
     }
 
     const handleChange = (event) => {
