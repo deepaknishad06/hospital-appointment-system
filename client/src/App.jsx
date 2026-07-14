@@ -7,11 +7,13 @@ import Login from './pages/login.jsx'
 import Dashboard from './pages/dashboard.jsx'
 import BookAppointment from './pages/bookAppointment.jsx'
 import Profile from './components/profile.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 import './App.css'
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
