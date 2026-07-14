@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "https://hospital-appointment-system-xt44.onrender.com/";
+const API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  "https://hospital-appointment-system-xt44.onrender.com/api";
 
 const authAxios = axios.create({
   baseURL: API_BASE,
