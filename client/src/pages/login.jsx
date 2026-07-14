@@ -20,7 +20,7 @@ function Login() {
         specialization: ''
     })
     const [status, setStatus] = useState('')
-    const [activeTab, setActiveTab] = useState('patient-login') // 'patient-login', 'patient-register', 'doctor-register'
+    const [activeTab, setActiveTab] = useState('patient-login') // 'patient-login', 'patient-register', 'doctor-login', 'doctor-register'
 
     const handleCredentialsChange = (event) => {
         const { name, value } = event.target
@@ -126,6 +126,12 @@ function Login() {
                                 Register as Patient
                             </button>
                             <button
+                                className={`tab-button ${activeTab === 'doctor-login' ? 'active' : ''}`}
+                                onClick={() => { setActiveTab('doctor-login'); setStatus('') }}
+                            >
+                                Doctor Login
+                            </button>
+                            <button
                                 className={`tab-button ${activeTab === 'doctor-register' ? 'active' : ''}`}
                                 onClick={() => { setActiveTab('doctor-register'); setStatus('') }}
                             >
@@ -226,6 +232,49 @@ function Login() {
                             </>
                         )}
 
+                        {/* Doctor Login Tab */}
+                        {activeTab === 'doctor-login' && (
+                            <>
+                                <h1>Doctor Login</h1>
+                                <p>Enter your email and password to access your doctor account.</p>
+                                <form className="login-form" onSubmit={handleLogin}>
+                                    <label>
+                                        Email
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={credentials.email}
+                                            onChange={handleCredentialsChange}
+                                            placeholder="doctor@example.com"
+                                            required
+                                        />
+                                    </label>
+
+                                    <label>
+                                        Password
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            value={credentials.password}
+                                            onChange={handleCredentialsChange}
+                                            placeholder="Enter your password"
+                                            required
+                                        />
+                                    </label>
+
+                                    <button type="submit" className="btn btn-primary">Login</button>
+                                    {status && <p className="login-status">{status}</p>}
+                                </form>
+
+                                <div className="login-actions">
+                                    <span>Don't have an account?</span>
+                                    <button type="button" onClick={() => { setActiveTab('doctor-register'); setStatus('') }}>
+                                        Register here
+                                    </button>
+                                </div>
+                            </>
+                        )}
+
                         {/* Doctor Register Tab */}
                         {activeTab === 'doctor-register' && (
                             <>
@@ -291,6 +340,13 @@ function Login() {
                                     <button type="submit" className="btn btn-primary">Submit Registration</button>
                                     {status && <p className="login-status">{status}</p>}
                                 </form>
+
+                                <div className="login-actions">
+                                    <span>Already have an account?</span>
+                                    <button type="button" onClick={() => { setActiveTab('doctor-login'); setStatus('') }}>
+                                        Login here
+                                    </button>
+                                </div>
                             </>
                         )}
                     </div>

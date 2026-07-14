@@ -53,22 +53,22 @@ const services = [
 
 const initialTestimonials = [
     {
-        name: 'Aisha Khan',
+        name: 'aisha',
         feedback: 'The doctors were very caring and the treatment process was smooth and professional.',
         rating: 5,
-        location: 'Lahore',
+        location: 'Ludhiana,punjab',
     },
     {
-        name: 'Bilal Ahmed',
+        name: 'Rajesh Shukla',
         feedback: 'Excellent care, clean environment, and fast support during my visit.',
         rating: 5,
-        location: 'Islamabad',
+        location: 'Jalandhar,punjab',
     },
     {
-        name: 'Farah Ali',
+        name: 'sara shah',
         feedback: 'I felt comfortable throughout my appointment and the staff was very helpful.',
         rating: 5,
-        location: 'Karachi',
+        location: 'New Delhi',
     },
 ]
 
