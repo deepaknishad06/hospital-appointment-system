@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const Appointment = require("../models/Appointment");
 const User = require("../models/User");
 const { auth, requireRole } = require("../middleware/auth");
@@ -8,26 +9,61 @@ router.use(auth);
 
 router.post("/", async (req, res, next) => {
   try {
-    const { doctorId, appointmentDate, appointmentTime, symptoms, phone } =
-      req.body;
+    const {
+      doctorId,
+      doctor,
+      appointmentDate,
+      appointmentTime,
+      symptoms,
+      phone,
+    } = req.body;
     const patientId =
       req.user.role === "patient" ? req.user._id : req.body.patientId;
+    const doctorLookup = doctorId || doctor;
 
-    if (!doctorId || !appointmentDate || !appointmentTime) {
+    if (!doctorLookup || !appointmentDate || !appointmentTime) {
       return res
         .status(400)
         .json({ message: "Doctor, date, and time are required" });
     }
 
-    const doctor = await User.findOne({
-      _id: doctorId,
-      role: "doctor",
-      isAdmin: true,
-    });
-    if (!doctor) {
-      return res
-        .status(404)
-        .json({ message: "Doctor not found or not approved" });
+    let doctorQuery = { role: "doctor" };
+
+    if (mongoose.Types.ObjectId.isValid(doctorLookup)) {
+      doctorQuery._id = doctorLookup;
+    } else {
+      const normalizedLookup = String(doctorLookup).trim();
+      const doctorNameMap = {
+        "sandeep-chopra": "Dr. Sandeep Chopra",
+        "jagminder-singh": "Dr. Jagminder Singh",
+        "hunny-bansal": "Dr. Hunny Bansal",
+      };
+      const resolvedName =
+        doctorNameMap[normalizedLookup.toLowerCase()] || normalizedLookup;
+
+      doctorQuery.$or = [
+        {
+          name: {
+            $regex: new RegExp(
+              `^${resolvedName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
+              "i",
+            ),
+          },
+        },
+        {
+          name: {
+            $regex: new RegExp(
+              `^${normalizedLookup.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
+              "i",
+            ),
+          },
+        },
+      ];
+    }
+
+    const matchedDoctor = await User.findOne(doctorQuery);
+    if (!matchedDoctor) {
+      return res.status(404).json({ message: "Doctor not found" });
     }
 
     if (!patientId) {
@@ -43,7 +79,7 @@ router.post("/", async (req, res, next) => {
 
     const appointment = new Appointment({
       patient: patient._id,
-      doctor: doctor._id,
+      doctor: matchedDoctor._id,
       patientName: patient.name,
       email: patient.email,
       phone: phone || patient.phone,
@@ -54,12 +90,10 @@ router.post("/", async (req, res, next) => {
     });
 
     const savedAppointment = await appointment.save();
-    return res
-      .status(201)
-      .json({
-        message: "Appointment created successfully",
-        appointment: savedAppointment,
-      });
+    return res.status(201).json({
+      message: "Appointment created successfully",
+      appointment: savedAppointment,
+    });
   } catch (error) {
     next(error);
   }
