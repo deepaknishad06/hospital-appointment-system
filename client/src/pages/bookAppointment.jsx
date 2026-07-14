@@ -40,13 +40,15 @@ function BookAppointment() {
         setIsSubmitting(true)
 
         try {
-            const response = await fetch('https://hospital-appointment-system-xt44.onrender.com/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/appointments`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                })
 
             if (!response.ok) {
                 const errorData = await response.json()
