@@ -80,7 +80,8 @@ function Home() {
 
     const handleBookAppointmentClick = () => {
         if (!localStorage.getItem('hospital_token')) {
-            alert('Login patient first for booking appointments')
+            alert('Please log in first to book an appointment.')
+            navigate('/login')
             return
         }
         navigate('/book-appointment')
@@ -255,7 +256,7 @@ function Home() {
                 </div>
 
                 <div className="contact-grid">
-                    <div className="contact-info">
+                    <div className="contact-info">      
                         <div className="contact-card">
                             <h3>Address</h3>
                             <p>123 MediCare Road, Civil Lines, Ludhiana, Punjab, India</p>
