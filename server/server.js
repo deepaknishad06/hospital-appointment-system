@@ -23,7 +23,11 @@ const corsOptions = {
       "http://127.0.0.1:5173",
     ];
 
-    if (!origin || allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/i.test(origin)) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/.*\.vercel\.app$/i.test(origin)
+    ) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_BASE = (
   import.meta.env.VITE_API_BASE ||
-  "https://hospital-appointment-system-xt44.onrender.com"
+  "https://hospital-appointment-system-1-6c9y.onrender.com"
 ).replace(/\/$/, "");
 
 const authAxios = axios.create({
